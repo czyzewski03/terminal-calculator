@@ -1,66 +1,33 @@
 #!/usr/bin/env python
 
 import sys
-import logging
 
-logging.basicConfig(level=logging.DEBUG,
-                    format= '%(asctime)s - %(levelname)s - %(message)s')
+import operators as op
 
-def sum_(operands):
-    """Adds all arguments in the order they are provided."""
-    answer = operands[0]
-    for arg in operands[1:]:
-        logging.debug(f'arg: {arg}')
-        answer += arg
-        logging.debug(f'answer: {answer}\n')
-    return answer
-
-def difference(operands):
-    """Subtracts all arguments from each other in the order they are provided."""
-    answer = operands[0]
-    for arg in operands[1:]:
-        answer -= arg
-    return answer
-
-def product(operands):
-    """Multiplies all arguments in the order they are provided."""
-    answer = operands[0]
-    for arg in operands[1:]:
-        answer *= arg
-    return answer
-    
-def quotient(operands):
-    answer = operands[0]
-    try:
-        for arg in operands[1:]:
-            answer /= arg
-        return answer
-    except ZeroDivisionError:
-        print('ERROR: Cannot divide by zero')
-        sys.exit()
-
-
+# Checks that both the function and operand(s) variables have been provided.
 if len(sys.argv) < 2:
     print('Usage: [command] [operand] ...')
     sys.exit()
 function = sys.argv[1]
 operands = [float(x) for x in sys.argv[2:]]
 
+# Establishes valid keywords for performing an operation.
 addition_commands = ['sum', 'add', 'addition']
 subtraction_commands = ['difference', 'subtract', 'subtraction']
 multiplication_commands = ['product', 'multiply', 'multiplication']
 division_commands = ['quotient', 'divide', 'division']
 
+# Calculates the answer using the correct function.
 if function in addition_commands:
-    answer = sum_(operands)
+    answer = op.sum_(operands)
 elif function in subtraction_commands:
-    answer = difference(operands)
+    answer = op.difference(operands)
 elif function in multiplication_commands:
-    answer = product(operands)
+    answer = op.product(operands)
 elif function in division_commands:
-    answer = quotient(operands)
+    answer = op.quotient(operands)
 
+# Converts answer to integer, if applicable.
 if answer == int(answer):
-    print(int(answer))
-else:
-    print(answer)
+    answer = int(answer)
+print(answer)
