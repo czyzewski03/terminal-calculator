@@ -1,15 +1,39 @@
 #!/usr/bin/env python
 
 import sys
+import shelve
 
 import operators as op
+
+shelf_file = shelve.open('variables')
 
 # Checks that the function and operand variables have been provided.
 if len(sys.argv) < 2:
     print('Usage: [command] [operand] ...')
     sys.exit()
 function = sys.argv[1]
-operands = [float(x) for x in sys.argv[2:]]
+
+# Assigns value to a given variable.
+if function == 'assign':
+    variable = sys.argv[2].lower()
+    value = float(sys.argv[3])
+    if variable.isalpha() and len(variable) == 1:
+        shelf_file[variable] = value
+        print(f"'{variable}' is set to {value}")
+    else:
+        print(f"ERROR: '{variable}' is not a valid variable name")
+        print('Values can only be assigned to single letters')
+    shelf_file.close()
+    sys.exit()
+
+# Converts provided arguments into floats.
+operands = []
+for argument in sys.argv[2:]:
+    if argument.isdigit():
+        argument = float(argument)
+    elif argument.isalpha():
+        argument = float(shelf_file[argument])
+    operands.append(argument)
 
 # Establishes valid keywords for performing an operation.
 addition_commands = ['sum', 'add', 'addition', 'plus', '+']
@@ -31,3 +55,5 @@ elif function in division_commands:
 if answer == int(answer):
     answer = int(answer)
 print(answer)
+
+shelf_file.close()
