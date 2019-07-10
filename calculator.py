@@ -5,6 +5,18 @@ import shelve
 
 import operators as op
 
+def to_float(number):
+    """Converts numbers and variables to floats."""
+    if number.isdigit():
+        return float(number)
+    elif number.isalpha():
+        try:
+            return float(shelf_file[number])
+        except KeyError:
+            print(f"'ERROR: Variable '{number}' does not exist")
+            sys.exit()
+
+
 shelf_file = shelve.open('variables')
 
 # Checks that the function and operand variables have been provided.
@@ -16,7 +28,7 @@ function = sys.argv[1]
 # Assigns value to a given variable.
 if function == 'assign':
     variable = sys.argv[2].lower()
-    value = float(sys.argv[3])
+    value = to_float(sys.argv[3])
     if variable.isalpha() and len(variable) == 1:
         shelf_file[variable] = value
         print(f"'{variable}' is set to {value}")
