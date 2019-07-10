@@ -56,4 +56,5 @@ if answer == int(answer):
     answer = int(answer)
 print(answer)
 
+shelf_file['ans'] = answer
 shelf_file.close()
