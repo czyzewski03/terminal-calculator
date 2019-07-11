@@ -31,6 +31,6 @@ else:
     sys.exit()
 
 # Converts answer to integer, if applicable.
-if answer == int(answer):
+if answer.is_integer():
     answer = int(answer)
 print(answer)
