@@ -24,20 +24,6 @@ if len(sys.argv) < 2:
     print('Usage: [command] [operand] ...')
     sys.exit()
 function = sys.argv[1]
-
-# Assigns value to a given variable.
-if function == 'assign':
-    variable = sys.argv[2].lower()
-    value = to_float(sys.argv[3])
-    if variable.isalpha() and len(variable) == 1:
-        shelf_file[variable] = value
-        print(f"'{variable}' is set to {value}")
-    else:
-        print(f"ERROR: '{variable}' is not a valid variable name")
-        print('Values can only be assigned to single letters')
-    shelf_file.close()
-    sys.exit()
-
 # Converts provided arguments into floats.
 operands = []
 for argument in sys.argv[2:]:
@@ -58,6 +44,19 @@ elif function in multiplication_commands:
     answer = op.product(operands)
 elif function in division_commands:
     answer = op.quotient(operands)
+
+# Assigns value to a given variable.
+elif function == 'assign':
+    variable = sys.argv[2].lower()
+    value = to_float(sys.argv[3])
+    if variable.isalpha() and len(variable) == 1:
+        shelf_file[variable] = value
+        print(f"'{variable}' is set to {value}")
+    else:
+        print(f"ERROR: '{variable}' is not a valid variable name")
+        print('Values can only be assigned to single letters')
+    shelf_file.close()
+    sys.exit()
 
 # Converts answer to integer, if applicable.
 if answer == int(answer):
