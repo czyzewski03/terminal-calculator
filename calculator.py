@@ -26,6 +26,9 @@ elif function in multiplication_commands:
     answer = op.product(operands)
 elif function in division_commands:
     answer = op.quotient(operands)
+else:
+    print(f"ERROR: Command '{function}' not recognised")
+    sys.exit()
 
 # Converts answer to integer, if applicable.
 if answer == int(answer):
