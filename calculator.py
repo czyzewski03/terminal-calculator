@@ -41,11 +41,7 @@ if function == 'assign':
 # Converts provided arguments into floats.
 operands = []
 for argument in sys.argv[2:]:
-    if argument.isdigit():
-        argument = float(argument)
-    elif argument.isalpha():
-        argument = float(shelf_file[argument])
-    operands.append(argument)
+    operands.append(to_float(argument))
 
 # Establishes valid keywords for performing an operation.
 addition_commands = ['sum', 'add', 'addition', 'plus', '+']
