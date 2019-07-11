@@ -7,14 +7,14 @@ import operators as op
 
 def to_float(number):
     """Converts numbers and variables to floats."""
-    if number.isdigit():
-        return float(number)
-    elif number.isalpha():
+    if number.isalpha():
         try:
             return float(shelf_file[number])
         except KeyError:
             print(f"'ERROR: Variable '{number}' does not exist")
             sys.exit()
+    else:
+        return float(number)
 
 
 shelf_file = shelve.open('variables')
