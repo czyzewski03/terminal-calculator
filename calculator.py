@@ -42,9 +42,6 @@ elif function in multiplication_commands:
     answer = op.product(operands)
 elif function in division_commands:
     answer = op.quotient(operands)
-else:
-    print(f"ERROR: Command '{function}' not recognised")
-    sys.exit()
 
 # Assigns value to a given variable.
 elif function == 'assign':
@@ -57,6 +54,10 @@ elif function == 'assign':
         print(f"ERROR: '{variable}' is not a valid variable name")
         print('Values can only be assigned to single letters')
     shelf_file.close()
+    sys.exit()
+
+else:
+    print(f"ERROR: Command '{function}' not recognised")
     sys.exit()
 
 # Converts answer to integer, if applicable.
