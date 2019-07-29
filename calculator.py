@@ -25,9 +25,7 @@ if len(sys.argv) < 2:
     sys.exit()
 function = sys.argv[1]
 # Converts provided arguments into floats.
-operands = []
-for argument in sys.argv[2:]:
-    operands.append(to_float(argument))
+operands = [to_float(arg) for arg in sys.argv[2:]]
 
 # Establishes valid keywords for performing an operation.
 addition_commands = ['sum', 'add', 'addition', 'plus', '+']
