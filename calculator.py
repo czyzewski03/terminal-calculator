@@ -9,7 +9,7 @@ def to_float(number):
     """Converts numbers and variables to floats."""
     if number.isalpha():
         try:
-            return float(shelf_file[number])
+            return float(symbols[number])
         except KeyError:
             print(f"'ERROR: Variable '{number}' does not exist")
             sys.exit()
@@ -17,7 +17,9 @@ def to_float(number):
         return float(number)
 
 
-shelf_file = shelve.open('variables')
+symbols = shelve.open('symbols')
+symbols['PI'] = 3.141592653589793
+symbols['E'] = 2.718281828459045
 
 # Checks that the function and operand variables have been provided.
 if len(sys.argv) < 2:
@@ -48,12 +50,12 @@ elif function == 'assign':
     variable = sys.argv[2].lower()
     value = to_float(sys.argv[3])
     if variable.isalpha() and len(variable) == 1:
-        shelf_file[variable] = value
+        symbols[variable.lower()] = value
         print(f"'{variable}' is set to {value}")
     else:
         print(f"ERROR: '{variable}' is not a valid variable name")
         print('Values can only be assigned to single letters')
-    shelf_file.close()
+    symbols.close()
     sys.exit()
 
 else:
@@ -65,5 +67,5 @@ if answer.is_integer():
     answer = int(answer)
 print(answer)
 
-shelf_file['ans'] = answer
-shelf_file.close()
+symbols['ans'] = answer
+symbols.close()
